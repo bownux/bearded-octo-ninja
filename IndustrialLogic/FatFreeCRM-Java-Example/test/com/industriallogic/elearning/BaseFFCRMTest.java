@@ -57,6 +57,10 @@ public class BaseFFCRMTest {
 		assertTrue(element.isDisplayed());
 		return element;
 	}
+	
+	protected void assertElementVisible(WebElement element) {
+		assertTrue(element.isDisplayed());
+	}
 
 	protected void clickTab(String tabName) {
 		WebElement tab = driver.findElement(By.linkText(tabName));
