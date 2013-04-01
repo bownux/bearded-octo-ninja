@@ -13,7 +13,6 @@ public class WhenAUserSearchesForAnAccount extends BaseFFCRMTest {
 
 	@Test
 	public void theyCanFindTheOneTheySearchedFor() throws Exception {
-		login(USERNAME, PASSWORD);
 		openTheHiddenQuickFindPanel();
 		clickOnTheAccountsSearchLink();
 		
