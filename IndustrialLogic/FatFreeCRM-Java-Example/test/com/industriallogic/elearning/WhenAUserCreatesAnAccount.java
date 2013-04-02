@@ -26,9 +26,21 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 		fillOutCreateAccountPanel(accountName);
 	}
 
+	private WebElement openAccountCreationPane() {
+		WebElement createAccountPaneOpeningToggle = accountsTab.findElement(By.id("create_account_arrow"));
+		createAccountPaneOpeningToggle.click();
+		assertElementPresent(By.id("create_account_title"));
+		return accountsTab.findElement(By.id("create_account"));
+	}
+	
 	private void fillOutCreateAccountPanel(String accountName) throws Exception {
 		enterNewAccountName(accountName);
 		submitForm();
+	}
+	
+	private void enterNewAccountName(String accountName) {
+		WebElement accountNameInputField = createAccountPanel.findElement(By.id("account_name"));
+		accountNameInputField.sendKeys(accountName);
 	}
 
 	private void submitForm() throws Exception {
@@ -60,17 +72,5 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 		WebElement noResultsFound = driver.findElement(By.id("empty"));
 		assertElementVisible(noResultsFound);
 		assertEquals("Couldn't find any accounts matching " + ACCOUNT_NAME + "; please try another query.",noResultsFound.getText());
-	}
-
-	private void enterNewAccountName(String accountName) {
-		WebElement accountNameInputField = createAccountPanel.findElement(By.id("account_name"));
-		accountNameInputField.sendKeys(accountName);
-	}
-
-	private WebElement openAccountCreationPane() {
-		WebElement createAccountPaneOpeningToggle = accountsTab.findElement(By.id("create_account_arrow"));
-		createAccountPaneOpeningToggle.click();
-		assertElementPresent(By.id("create_account_title"));
-		return accountsTab.findElement(By.id("create_account"));
 	}
 }
