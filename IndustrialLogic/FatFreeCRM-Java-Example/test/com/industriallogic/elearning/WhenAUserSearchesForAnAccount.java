@@ -1,15 +1,12 @@
 package com.industriallogic.elearning;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class WhenAUserSearchesForAnAccount extends BaseFFCRMTest {
-	private WebElement hiddenSearchPanel;
+	WebElement hiddenSearchPanel;
 
 	@Test
 	public void theyCanFindTheOneTheySearchedFor() throws Exception {
@@ -19,16 +16,6 @@ public class WhenAUserSearchesForAnAccount extends BaseFFCRMTest {
 		String searchTerm = "Acme 123";
 		enterSearchText(searchTerm); 
 		assertThatResultingPanelContains(searchTerm);
-	}
-	
-	private void openTheHiddenQuickFindPanel() {
-		hiddenSearchPanel = driver.findElement(By.id("jumpbox"));
-		assertFalse(hiddenSearchPanel.isDisplayed());
-
-		WebElement quickFindMenuLink = driver.findElement(By.id("jumper"));
-		quickFindMenuLink.click();
-		
-		assertTrue(hiddenSearchPanel.isDisplayed());		
 	}
 	
 	private void clickOnTheAccountsSearchLink() {
@@ -43,10 +30,5 @@ public class WhenAUserSearchesForAnAccount extends BaseFFCRMTest {
 		WebElement autoCompleteHighlight = driver.findElement(
 				By.cssSelector("div[id=auto_complete_dropdown] li[class=selected] strong[class=highlight]"));
 		autoCompleteHighlight.click();
-	}
-	
-	private void assertThatResultingPanelContains(String searchTerm) {
-		WebElement acmeAccountPanelTitle = driver.findElement(By.id("edit_account_title"));
-		assertEquals(searchTerm, acmeAccountPanelTitle.getText());
 	}
 }

@@ -1,6 +1,7 @@
 package com.industriallogic.elearning;
 
 import static org.junit.Assert.*;
+
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -12,14 +13,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BaseFFCRMTest {
 
-	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	private final int TIMEOUT_IN_SECONDS = 15;
+	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	protected static final String PASSWORD = "admin";
 	protected static final String USERNAME = "admin";
+	
 	static final String ACCOUNTS = "Accounts";
 	static final String ACCOUNTS_TAB_TITLE_CSS = "span[id=create_account_title]";
 	
-	
+	protected WebElement hiddenSearchPanel;
 	public WebDriver driver;
 
 	@Before
@@ -70,6 +72,21 @@ public class BaseFFCRMTest {
 	@After
 	public void stopEverything() {
 		driver.quit();
+	}
+
+	protected void openTheHiddenQuickFindPanel() {
+		hiddenSearchPanel = driver.findElement(By.id("jumpbox"));
+		assertFalse(hiddenSearchPanel.isDisplayed());
+	
+		WebElement quickFindMenuLink = driver.findElement(By.id("jumper"));
+		quickFindMenuLink.click();
+		
+		assertTrue(hiddenSearchPanel.isDisplayed());		
+	}
+
+	protected void assertThatResultingPanelContains(String searchTerm) {
+		WebElement panelTitle = driver.findElement(By.id("edit_account_title"));
+		assertEquals(searchTerm, panelTitle.getText());
 	}
 }
 
