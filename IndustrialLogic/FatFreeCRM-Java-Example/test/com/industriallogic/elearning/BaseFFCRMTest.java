@@ -12,10 +12,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BaseFFCRMTest {
 
-	private static final String HOME_PAGE_URL = "http://demo.fatfreecrm.com/";
+	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	private final int TIMEOUT_IN_SECONDS = 15;
-	protected static final String PASSWORD = "password";
-	protected static final String USERNAME = "seleniumpatterns";
+	protected static final String PASSWORD = "admin";
+	protected static final String USERNAME = "admin";
 	static final String ACCOUNTS = "Accounts";
 	static final String ACCOUNTS_TAB_TITLE_CSS = "span[id=create_account_title]";
 	

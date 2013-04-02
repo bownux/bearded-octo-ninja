@@ -3,7 +3,6 @@ package com.industriallogic.elearning;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
@@ -29,7 +28,6 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 
 	private void fillOutCreateAccountPanel(String accountName) throws Exception {
 		enterNewAccountName(accountName);
-		selectBergbauBranchOption();
 		submitForm();
 	}
 
@@ -63,27 +61,10 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 		assertElementVisible(noResultsFound);
 		assertEquals("Couldn't find any accounts matching " + ACCOUNT_NAME + "; please try another query.",noResultsFound.getText());
 	}
-	
 
 	private void enterNewAccountName(String accountName) {
 		WebElement accountNameInputField = createAccountPanel.findElement(By.id("account_name"));
 		accountNameInputField.sendKeys(accountName);
-	}
-
-	private void selectBergbauBranchOption() throws Exception {
-		WebElement branchToggle = createAccountPanel.findElement(By.partialLinkText(" Branche"));
-		assertElementVisible(branchToggle);
-		branchToggle.click();
-		
-		WebElement branchSelect = createAccountPanel.findElement(By.id("account_cf_branche"));
-		assertElementVisible(branchSelect);
-		branchSelect.click();
-		
-		WebElement bergBauOption = branchSelect.findElement(By.cssSelector("option[value=Bergbau]"));
-		assertElementVisible(bergBauOption);
-		branchSelect.click();
-		branchSelect.sendKeys("b");
-		branchSelect.sendKeys(Keys.ENTER);
 	}
 
 	private WebElement openAccountCreationPane() {
@@ -92,6 +73,4 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 		assertElementPresent(By.id("create_account_title"));
 		return accountsTab.findElement(By.id("create_account"));
 	}
-	
-	
 }
