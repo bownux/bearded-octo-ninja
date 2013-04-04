@@ -1,6 +1,7 @@
 package com.industriallogic.elearning;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -50,7 +51,7 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 	
 	private void verifyAccountCreated(String accountName) {
 		searchForAccount();
-		WebElement accountLink = driver.findElement(By.linkText(ACCOUNT_NAME));
+		WebElement accountLink = driver.findElement(By.partialLinkText("BassOmatics"));
 		accountLink.click();
 		driver.findElement(By.id("edit_account_title"));
 	}

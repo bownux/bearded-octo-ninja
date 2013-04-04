@@ -1,19 +1,25 @@
 package com.industriallogic.elearning;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BaseFFCRMTest {
 
-	private final int TIMEOUT_IN_SECONDS = 15;
+	private final int TIMEOUT_IN_SECONDS = 10;
 	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	protected static final String PASSWORD = "admin";
 	protected static final String USERNAME = "admin";
@@ -23,12 +29,18 @@ public class BaseFFCRMTest {
 	
 	protected WebElement hiddenSearchPanel;
 	public WebDriver driver;
+	
 
 	@Before
-	public void openFirefox() {
-		driver = new FirefoxDriver();
+	public void openFirefoxOnSauce() throws Exception {
+        DesiredCapabilities capabillities = DesiredCapabilities.firefox();
+        capabillities.setCapability("version", "12.0");
+        capabillities.setCapability("platform", Platform.MAC);
+        this.driver = new RemoteWebDriver(
+					  new URL("http://patrickwilsonwelsh:dec2c72a-6dc5-4f38-a5ee-56750db1c22c@ondemand.saucelabs.com:80/wd/hub"),
+					  capabillities);
 		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
-		driver.navigate().to(HOME_PAGE_URL);
+		driver.get(HOME_PAGE_URL);
 		login(USERNAME, PASSWORD);
 	}
 
