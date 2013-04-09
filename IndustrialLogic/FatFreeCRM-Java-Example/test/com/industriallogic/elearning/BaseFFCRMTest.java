@@ -72,6 +72,29 @@ public class BaseFFCRMTest {
 	private WebElement mainTabPanel() {
 		return driver.findElement(By.id("main"));
 	}
+	
+	protected void clickTab(String tabName) {
+		WebElement tab = driver.findElement(By.linkText(tabName));
+		tab.click();
+	}
+	
+	
+	protected void openTheHiddenQuickFindPanel() {
+		hiddenSearchPanel = driver.findElement(By.id("jumpbox"));
+		assertFalse(hiddenSearchPanel.isDisplayed());
+		
+		WebElement quickFindMenuLink = driver.findElement(By.id("jumper"));
+		quickFindMenuLink.click();
+		
+		assertTrue(hiddenSearchPanel.isDisplayed());		
+	}
+	@After
+	public void stopEverything() {
+		driver.close();
+		driver.quit();
+	}
+	
+	//---- 
 
 	protected WebElement assertElementPresent(By selector) {
 		WebElement element = driver.findElement(selector);
@@ -82,27 +105,6 @@ public class BaseFFCRMTest {
 	
 	protected void assertElementVisible(WebElement element) {
 		assertTrue(element.isDisplayed());
-	}
-
-	protected void clickTab(String tabName) {
-		WebElement tab = driver.findElement(By.linkText(tabName));
-		tab.click();
-	}
-
-	@After
-	public void stopEverything() {
-		driver.close();
-		driver.quit();
-	}
-
-	protected void openTheHiddenQuickFindPanel() {
-		hiddenSearchPanel = driver.findElement(By.id("jumpbox"));
-		assertFalse(hiddenSearchPanel.isDisplayed());
-	
-		WebElement quickFindMenuLink = driver.findElement(By.id("jumper"));
-		quickFindMenuLink.click();
-		
-		assertTrue(hiddenSearchPanel.isDisplayed());		
 	}
 
 	protected void assertThatResultingPanelContains(String searchTerm) {
