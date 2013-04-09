@@ -52,6 +52,7 @@ public class WhenAUserCreatesAnAccount  extends BaseFFCRMTest {
 	private void verifyAccountCreated(String accountName) {
 		searchForAccount();
 		WebElement accountLink = driver.findElement(By.partialLinkText("BassOmatics"));
+		assertElementVisible(accountLink);
 		accountLink.click();
 		driver.findElement(By.id("edit_account_title"));
 	}
