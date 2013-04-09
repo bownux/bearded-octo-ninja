@@ -12,14 +12,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BaseFFCRMTest {
 
-	private final int TIMEOUT_IN_SECONDS = 15;
+	protected final int TIMEOUT_IN_SECONDS = 15;
 	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	protected static final String PASSWORD = "admin";
 	protected static final String USERNAME = "admin";
@@ -29,9 +31,7 @@ public class BaseFFCRMTest {
 	
 	protected WebElement hiddenSearchPanel;
 	public WebDriver driver;
-	
 
-	@Before
 	public void openFirefoxOnSauce() throws Exception {
         DesiredCapabilities capabillities = DesiredCapabilities.firefox();
         capabillities.setCapability("version", "12.0");
@@ -40,6 +40,14 @@ public class BaseFFCRMTest {
 					  new URL("http://patrickwilsonwelsh:dec2c72a-6dc5-4f38-a5ee-56750db1c22c@ondemand.saucelabs.com:80/wd/hub"),
 					  capabillities);
 		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
+		driver.get(HOME_PAGE_URL);
+		login(USERNAME, PASSWORD);
+	}
+
+	@Before
+	public void openFireFox() throws Exception {
+        this.driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
 		driver.get(HOME_PAGE_URL);
 		login(USERNAME, PASSWORD);
 	}
@@ -83,6 +91,7 @@ public class BaseFFCRMTest {
 
 	@After
 	public void stopEverything() {
+		driver.close();
 		driver.quit();
 	}
 
@@ -100,5 +109,36 @@ public class BaseFFCRMTest {
 		WebElement panelTitle = driver.findElement(By.id("edit_account_title"));
 		assertEquals(searchTerm, panelTitle.getText());
 	}
+	
+	protected WebElement getElementOnceNotStale(By location) {
+		WebElement element = null;
+		long maxTime = TIMEOUT_IN_SECONDS/60; // time out in milliseconds
+		long waitTime = 500; // time to wait each loop
+		long i = 0;
+		do {
+			try {
+				element = driver.findElement(location);
+				element.getTagName();
+				
+				break; //Success: element is no longer stale
+			} catch (StaleElementReferenceException sere) {
+				// Element is stale; need to wait briefly and retry findElement()
+			}
+
+			try {
+				driver.wait(waitTime);
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+
+		} while (weHaventTimedOut(maxTime, waitTime, i));
+
+		return element;
+	}
+
+	private boolean weHaventTimedOut(long maxTime, long waitTime, long i) {
+		return (i += waitTime) < maxTime;
+	}
+
 }
 
