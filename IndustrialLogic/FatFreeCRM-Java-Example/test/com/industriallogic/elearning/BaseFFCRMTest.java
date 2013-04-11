@@ -19,7 +19,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BaseFFCRMTest {
 
-	protected final int TIMEOUT_IN_SECONDS = 15;
+	protected final int TIMEOUT_IN_SECONDS = 25;
 	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	protected static final String PASSWORD = "admin";
 	protected static final String USERNAME = "admin";

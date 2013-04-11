@@ -30,31 +30,36 @@ public class DriverExtensions {
 
 	public WebElement getElementOnceNotStale(By location) {
 		WebElement element = null;
-		long maxTime = timeoutInSeconds/1000; // timeout in milliseconds
-		long waitTime = 500; // time to wait per loop
-		long i = 0;
+		long maxTimeInMillis = timeoutInSeconds/1000; 
+		long loopWaitTimeInMillis = 500; 
+		long elapsedTimeInMillis = 0;
+		
 		do {
 			try {
 				element = driver.findElement(location);
-				element.getTagName();
+				flowContinuesIfElementNotStale(element);
 				
-				break; //Success: element is no longer stale
+				break; 
 			} catch (StaleElementReferenceException sere) {
 				// Element is stale; need to wait briefly and retry findElement()
 			}
 
 			try {
-				driver.wait(waitTime);
+					Thread.sleep(loopWaitTimeInMillis);
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
 
-		} while (weHaventTimedOut(maxTime, waitTime, i));
+		} while (weHaventTimedOut(maxTimeInMillis, loopWaitTimeInMillis, elapsedTimeInMillis));
 
 		return element;
 	}
 
-	private boolean weHaventTimedOut(long maxTime, long waitTime, long i) {
-		return (i += waitTime) < maxTime;
+	private void flowContinuesIfElementNotStale(WebElement element) {
+		element.getTagName();
+	}
+
+	private boolean weHaventTimedOut(long maxTime, long waitTime, long elapsedTimeInMillis) {
+		return (elapsedTimeInMillis += waitTime) < maxTime;
 	}
 }

@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class WhenAUserSearchesForAnAccount extends BaseFFCRMTest {
-
-
 	@Test
 	public void theyCanFindTheOneTheySearchedFor() throws Exception {
 		openTheHiddenQuickFindPanel();
