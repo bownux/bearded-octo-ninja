@@ -2,7 +2,6 @@ package com.industriallogic.elearning;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
@@ -12,7 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -31,6 +29,7 @@ public class BaseFFCRMTest {
 	
 	protected WebElement hiddenSearchPanel;
 	public WebDriver driver;
+	public DriverExtensions xdriver;
 
 	public void openFirefoxOnSauce() throws Exception {
         DesiredCapabilities capabillities = DesiredCapabilities.firefox();
@@ -39,16 +38,19 @@ public class BaseFFCRMTest {
         this.driver = new RemoteWebDriver(
 					  new URL("http://patrickwilsonwelsh:dec2c72a-6dc5-4f38-a5ee-56750db1c22c@ondemand.saucelabs.com:80/wd/hub"),
 					  capabillities);
-		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
-		driver.get(HOME_PAGE_URL);
-		login(USERNAME, PASSWORD);
+        configDriver();
 	}
 
 	@Before
 	public void openFireFox() throws Exception {
         this.driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
+        configDriver();
+	}
+
+	private void configDriver() {
+		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
 		driver.get(HOME_PAGE_URL);
+		xdriver = new DriverExtensions(driver, TIMEOUT_IN_SECONDS);
 		login(USERNAME, PASSWORD);
 	}
 
@@ -65,7 +67,7 @@ public class BaseFFCRMTest {
 	}
 
 	protected WebElement verifyWeAreOnAccountsTab() {
-		assertElementPresent(By.cssSelector(ACCOUNTS_TAB_TITLE_CSS));
+		xdriver.assertElementPresent(By.cssSelector(ACCOUNTS_TAB_TITLE_CSS));
 		return mainTabPanel();
 	}
 
@@ -88,6 +90,13 @@ public class BaseFFCRMTest {
 		
 		assertTrue(hiddenSearchPanel.isDisplayed());		
 	}
+	
+	public void assertThatResultingPanelContains(String searchTerm) {
+		WebElement panelTitle = driver.findElement(By.id("edit_account_title"));
+		assertEquals(searchTerm, panelTitle.getText());
+	}
+	
+	
 	@After
 	public void stopEverything() {
 		driver.close();
@@ -96,51 +105,46 @@ public class BaseFFCRMTest {
 	
 	//---- 
 
-	protected WebElement assertElementPresent(By selector) {
-		WebElement element = driver.findElement(selector);
-		assertNotNull(element);
-		assertTrue(element.isDisplayed());
-		return element;
-	}
-	
-	protected void assertElementVisible(WebElement element) {
-		assertTrue(element.isDisplayed());
-	}
-
-	protected void assertThatResultingPanelContains(String searchTerm) {
-		WebElement panelTitle = driver.findElement(By.id("edit_account_title"));
-		assertEquals(searchTerm, panelTitle.getText());
-	}
-	
-	protected WebElement getElementOnceNotStale(By location) {
-		WebElement element = null;
-		long maxTime = TIMEOUT_IN_SECONDS/60; // time out in milliseconds
-		long waitTime = 500; // time to wait each loop
-		long i = 0;
-		do {
-			try {
-				element = driver.findElement(location);
-				element.getTagName();
-				
-				break; //Success: element is no longer stale
-			} catch (StaleElementReferenceException sere) {
-				// Element is stale; need to wait briefly and retry findElement()
-			}
-
-			try {
-				driver.wait(waitTime);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
-
-		} while (weHaventTimedOut(maxTime, waitTime, i));
-
-		return element;
-	}
-
-	private boolean weHaventTimedOut(long maxTime, long waitTime, long i) {
-		return (i += waitTime) < maxTime;
-	}
+//	protected WebElement assertElementPresent(By selector) {
+//		WebElement element = driver.findElement(selector);
+//		assertNotNull(element);
+//		assertTrue(element.isDisplayed());
+//		return element;
+//	}
+//	
+//	protected void assertElementVisible(WebElement element) {
+//		assertTrue(element.isDisplayed());
+//	}
+//
+//	protected WebElement getElementOnceNotStale(By location) {
+//		WebElement element = null;
+//		long maxTime = TIMEOUT_IN_SECONDS/60; // time out in milliseconds
+//		long waitTime = 500; // time to wait each loop
+//		long i = 0;
+//		do {
+//			try {
+//				element = driver.findElement(location);
+//				element.getTagName();
+//				
+//				break; //Success: element is no longer stale
+//			} catch (StaleElementReferenceException sere) {
+//				// Element is stale; need to wait briefly and retry findElement()
+//			}
+//
+//			try {
+//				driver.wait(waitTime);
+//			} catch (InterruptedException ie) {
+//				ie.printStackTrace();
+//			}
+//
+//		} while (weHaventTimedOut(maxTime, waitTime, i));
+//
+//		return element;
+//	}
+//
+//	private boolean weHaventTimedOut(long maxTime, long waitTime, long i) {
+//		return (i += waitTime) < maxTime;
+//	}
 
 }
 

@@ -1,4 +1,4 @@
-package com.industriallogic.elearning;
+package com.saucelabs.common;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -17,7 +17,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  * *
  * @author Ross Rowe
  */
-public class WebDriverTest {
+public class SampleRemoteWebDriverTest {
 
     private WebDriver driver;
 

@@ -31,7 +31,7 @@ public class WhenAUserCreatesAnAccount extends BaseFFCRMTest {
 		WebElement createAccountPaneOpeningToggle = accountsTab.findElement(By
 				.id("create_account_arrow"));
 		createAccountPaneOpeningToggle.click();
-		assertElementPresent(By.id("create_account_title"));
+		xdriver.assertElementPresent(By.id("create_account_title"));
 		return accountsTab.findElement(By.id("create_account"));
 	}
 
@@ -54,7 +54,7 @@ public class WhenAUserCreatesAnAccount extends BaseFFCRMTest {
 
 	private void verifyAccountCreated(String accountName) {
 		searchForAccount();
-		WebElement accountLink = getElementOnceNotStale(By.partialLinkText("BassOmatics"));
+		WebElement accountLink = xdriver.getElementOnceNotStale(By.partialLinkText("BassOmatics"));
 		
 		accountLink.getTagName();
 		accountLink.click();
@@ -76,7 +76,7 @@ public class WhenAUserCreatesAnAccount extends BaseFFCRMTest {
 	private void verifyAccountDeleted(String accountName) {
 		searchForAccount();
 		WebElement noResultsFound = driver.findElement(By.id("empty"));
-		assertElementVisible(noResultsFound);
+		xdriver.assertElementVisible(noResultsFound);
 		assertEquals("Couldn't find any accounts matching " + ACCOUNT_NAME
 				+ "; please try another query.", noResultsFound.getText());
 	}
