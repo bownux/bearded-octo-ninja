@@ -102,49 +102,5 @@ public class BaseFFCRMTest {
 		driver.close();
 		driver.quit();
 	}
-	
-	//---- 
-
-//	protected WebElement assertElementPresent(By selector) {
-//		WebElement element = driver.findElement(selector);
-//		assertNotNull(element);
-//		assertTrue(element.isDisplayed());
-//		return element;
-//	}
-//	
-//	protected void assertElementVisible(WebElement element) {
-//		assertTrue(element.isDisplayed());
-//	}
-//
-//	protected WebElement getElementOnceNotStale(By location) {
-//		WebElement element = null;
-//		long maxTime = TIMEOUT_IN_SECONDS/60; // time out in milliseconds
-//		long waitTime = 500; // time to wait each loop
-//		long i = 0;
-//		do {
-//			try {
-//				element = driver.findElement(location);
-//				element.getTagName();
-//				
-//				break; //Success: element is no longer stale
-//			} catch (StaleElementReferenceException sere) {
-//				// Element is stale; need to wait briefly and retry findElement()
-//			}
-//
-//			try {
-//				driver.wait(waitTime);
-//			} catch (InterruptedException ie) {
-//				ie.printStackTrace();
-//			}
-//
-//		} while (weHaventTimedOut(maxTime, waitTime, i));
-//
-//		return element;
-//	}
-//
-//	private boolean weHaventTimedOut(long maxTime, long waitTime, long i) {
-//		return (i += waitTime) < maxTime;
-//	}
-
 }
 
