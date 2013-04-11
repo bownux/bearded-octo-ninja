@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +19,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BaseFFCRMTest {
-
 	protected final int TIMEOUT_IN_SECONDS = 25;
 	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	protected static final String PASSWORD = "admin";
@@ -32,13 +32,20 @@ public class BaseFFCRMTest {
 	public DriverExtensions xdriver;
 
 	public void openFirefoxOnSauce() throws Exception {
-        DesiredCapabilities capabillities = DesiredCapabilities.firefox();
+        DesiredCapabilities capabillities = configureCapabilities();
+        this.driver = new RemoteWebDriver(sauceLabsURL(),capabillities);
+        configDriver();
+	}
+
+	private URL sauceLabsURL() throws MalformedURLException {
+		return new URL("http://patrickwilsonwelsh:dec2c72a-6dc5-4f38-a5ee-56750db1c22c@ondemand.saucelabs.com:80/wd/hub");
+	}
+
+	private DesiredCapabilities configureCapabilities() {
+		DesiredCapabilities capabillities = DesiredCapabilities.firefox();
         capabillities.setCapability("version", "12.0");
         capabillities.setCapability("platform", Platform.MAC);
-        this.driver = new RemoteWebDriver(
-					  new URL("http://patrickwilsonwelsh:dec2c72a-6dc5-4f38-a5ee-56750db1c22c@ondemand.saucelabs.com:80/wd/hub"),
-					  capabillities);
-        configDriver();
+		return capabillities;
 	}
 
 	@Before
@@ -80,7 +87,6 @@ public class BaseFFCRMTest {
 		tab.click();
 	}
 	
-	
 	protected void openTheHiddenQuickFindPanel() {
 		hiddenSearchPanel = driver.findElement(By.id("jumpbox"));
 		assertFalse(hiddenSearchPanel.isDisplayed());
@@ -95,7 +101,6 @@ public class BaseFFCRMTest {
 		WebElement panelTitle = driver.findElement(By.id("edit_account_title"));
 		assertEquals(searchTerm, panelTitle.getText());
 	}
-	
 	
 	@After
 	public void stopEverything() {
