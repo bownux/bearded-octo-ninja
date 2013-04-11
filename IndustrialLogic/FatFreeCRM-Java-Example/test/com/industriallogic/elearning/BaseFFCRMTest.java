@@ -32,8 +32,7 @@ public class BaseFFCRMTest {
 	public DriverExtensions xdriver;
 
 	public void openFirefoxOnSauce() throws Exception {
-        DesiredCapabilities capabillities = configureCapabilities();
-        this.driver = new RemoteWebDriver(sauceLabsURL(),capabillities);
+        this.driver = new RemoteWebDriver(sauceLabsURL(),configureCapabilities());
         configDriver();
 	}
 
