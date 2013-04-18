@@ -28,7 +28,7 @@ public class DriverExtensions {
 		assertTrue(element.isDisplayed());
 	}
 
-	public WebElement getElementOnceNotStale(By location) {
+	public WebElement getElementOnceNotStale(By locator) {
 		WebElement element = null;
 		long maxTimeInMillis = timeoutInSeconds/1000; 
 		long loopWaitTimeInMillis = 500; 
@@ -36,8 +36,8 @@ public class DriverExtensions {
 		
 		do {
 			try {
-				element = driver.findElement(location);
-				flowContinuesIfElementNotStale(element);
+				element = driver.findElement(locator);
+				flowContinuesIfNotStale(element);
 				
 				break; 
 			} catch (StaleElementReferenceException sere) {
@@ -55,7 +55,7 @@ public class DriverExtensions {
 		return element;
 	}
 
-	private void flowContinuesIfElementNotStale(WebElement element) {
+	private void flowContinuesIfNotStale(WebElement element) {
 		element.getTagName();
 	}
 
