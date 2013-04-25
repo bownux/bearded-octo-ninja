@@ -48,7 +48,7 @@ public class BaseFFCRMTest {
 	}
 
 	@Before
-	public void openFireFox() throws Exception {
+	public void openBrowser() throws Exception {
         this.driver = new FirefoxDriver();
         configDriver();
 	}
@@ -102,7 +102,7 @@ public class BaseFFCRMTest {
 	}
 	
 	@After
-	public void stopEverything() {
+	public void closeBrowser() {
 		driver.close();
 		driver.quit();
 	}
