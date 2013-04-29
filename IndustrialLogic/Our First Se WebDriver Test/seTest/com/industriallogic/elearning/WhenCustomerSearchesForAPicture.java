@@ -18,7 +18,7 @@ public class WhenCustomerSearchesForAPicture {
 	private final int TIMEOUT_IN_SECONDS = 15;
 	
 	@Before
-	public void openFirefox() {
+	public void openBrowser() {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
 	}
@@ -45,7 +45,7 @@ public class WhenCustomerSearchesForAPicture {
 	}
 
 	@After
-	public void closeFirefox() {
+	public void closeBrowser() {
 		driver.quit();
 	}
 }

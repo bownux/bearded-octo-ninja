@@ -4,7 +4,6 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -20,45 +19,49 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BaseFFCRMTest {
 	protected final int TIMEOUT_IN_SECONDS = 25;
-	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
 	protected static final String PASSWORD = "admin";
 	protected static final String USERNAME = "admin";
 	
 	static final String ACCOUNTS = "Accounts";
 	static final String ACCOUNTS_TAB_TITLE_CSS = "span[id=create_account_title]";
 	
+	private static final String HOME_PAGE_URL = "http://il-ffcrm.herokuapp.com/";
+	private static final String SAUCE_URL_WITH_CREDENTIALS = "http://industriallogic:f6300c89-a572-4bf0-80e4-8ff5db698f9a@ondemand.saucelabs.com:80/wd/hub";
+	
 	protected WebElement hiddenSearchPanel;
 	public WebDriver driver;
 	public DriverExtensions xdriver;
 
-	public void openFirefoxOnSauce() throws Exception {
-        this.driver = new RemoteWebDriver(sauceLabsURL(),configureCapabilities());
-        configDriver();
+	@Before
+	public void openBrowserOnSauce() throws Exception {
+		this.driver = new RemoteWebDriver(sauceLabsURL(),configureSauceCababilities());
+		configureDriver();
 	}
 
-	private URL sauceLabsURL() throws MalformedURLException {
-		return new URL("http://patrickwilsonwelsh:dec2c72a-6dc5-4f38-a5ee-56750db1c22c@ondemand.saucelabs.com:80/wd/hub");
+	private void configureDriver() {
+		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
+		driver.get(HOME_PAGE_URL);
+		xdriver = new DriverExtensions(driver, TIMEOUT_IN_SECONDS);
+		login(USERNAME, PASSWORD);
+	}
+	
+
+	private URL sauceLabsURL() throws Exception {
+		return new URL(SAUCE_URL_WITH_CREDENTIALS);
 	}
 
-	private DesiredCapabilities configureCapabilities() {
+	private DesiredCapabilities configureSauceCababilities() {
 		DesiredCapabilities capabillities = DesiredCapabilities.firefox();
         capabillities.setCapability("version", "12.0");
         capabillities.setCapability("platform", Platform.MAC);
 		return capabillities;
 	}
 
-	@Before
 	public void openBrowser() throws Exception {
-        this.driver = new FirefoxDriver();
-        configDriver();
+		this.driver = new FirefoxDriver();
+		configureDriver();
 	}
-
-	private void configDriver() {
-		driver.manage().timeouts().implicitlyWait(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS);
-		driver.get(HOME_PAGE_URL);
-		xdriver = new DriverExtensions(driver, TIMEOUT_IN_SECONDS);
-		login(USERNAME, PASSWORD);
-	}
+	
 
 	protected void login(String userName, String password) {
 		WebElement loginForm = driver.findElement(By.id("new_authentication"));
