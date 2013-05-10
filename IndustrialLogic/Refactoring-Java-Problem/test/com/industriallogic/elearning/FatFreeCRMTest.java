@@ -36,10 +36,9 @@ public class FatFreeCRMTest  {
 		assertNotNull(element);
 		assertTrue(element.isDisplayed());
 		tab = driver.findElement(By.id("main"));
-		WebElement createAccountPaneOpeningToggle = tab.findElement(By
-				.id("create_account_arrow"));
-		createAccountPaneOpeningToggle.click();
-		WebElement title = xdriver.driver.findElement(By.id("create_account_title"));
+		WebElement arrow = tab.findElement(By.id("create_account_arrow"));
+		arrow.click();
+		WebElement title = driver.findElement(By.id("create_account_title"));
 		assertNotNull(title);
 		assertTrue(title.isDisplayed());
 		create = tab.findElement(By.id("create_account"));
