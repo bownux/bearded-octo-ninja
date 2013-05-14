@@ -19,7 +19,6 @@ public class FatFreeCRMTest  {
 	public WebDriver driver;
 	public DriverExtensions xdriver;
 	
-	
 	@Test
 	public void accounts() throws Exception {
 		driver = new FirefoxDriver();
@@ -53,17 +52,16 @@ public class FatFreeCRMTest  {
 		link2.getTagName();
 		link2.click();
 		driver.findElement(By.id("edit_account_title"));
-
 		WebElement delete = driver.findElement(By.linkText("Delete?"));
 		delete.click();
 		WebElement confirm = driver.findElement(By.linkText("Yes"));
 		confirm.click();
 		WebElement search = driver.findElement(By.id("query"));
 		search.sendKeys("Bob's Bearings and BassOmatics");
-		WebElement noResultsFound = driver.findElement(By.id("empty"));
-		xdriver.assertElementVisible(noResultsFound);
+		WebElement empty = driver.findElement(By.id("empty"));
+		xdriver.assertElementVisible(empty);
 		assertEquals("Couldn't find any accounts matching " + "Bob's Bearings and BassOmatics"
-				+ "; please try another query.", noResultsFound.getText());
+				+ "; please try another query.", empty.getText());
 		driver.close();
 		driver.quit();
 	}
