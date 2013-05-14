@@ -25,10 +25,10 @@ public class FatFreeCRMTest  {
 		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 		driver.get("http://il-ffcrm.herokuapp.com/");
 		xdriver = new DriverExtensions(driver, 25);
-		WebElement login = driver.findElement(By.id("new_authentication"));
-		login.findElement(By.id("authentication_username")).sendKeys("admin");
-		login.findElement(By.id("authentication_password")).sendKeys("admin");
-		login.submit();
+		WebElement auth = driver.findElement(By.id("new_authentication"));
+		auth.findElement(By.id("authentication_username")).sendKeys("admin");
+		auth.findElement(By.id("authentication_password")).sendKeys("admin");
+		auth.submit();
 		WebElement link = driver.findElement(By.linkText("Accounts"));
 		link.click();
 		WebElement element = driver.findElement(By.cssSelector("span[id=create_account_title]"));
