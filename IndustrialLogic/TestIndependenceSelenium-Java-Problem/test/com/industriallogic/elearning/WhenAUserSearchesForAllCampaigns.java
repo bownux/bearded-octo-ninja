@@ -21,7 +21,4 @@ public class WhenAUserSearchesForAllCampaigns extends BaseCampaignTest {
 		
 		assertEquals(1, actualNumberOfCampaigns);
 	}
-	
-
-
 }
