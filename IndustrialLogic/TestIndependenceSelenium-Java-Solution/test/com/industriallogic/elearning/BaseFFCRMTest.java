@@ -12,8 +12,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class BaseFFCRMTest {
 	protected static final int TIMEOUT = 25;
 	protected static final String FAT_FREE_CRM_URL = "http://il-ffcrm.herokuapp.com/";
-	protected static final String PASSWORD = "authentication_password";
-	protected static final String USERNAME = "authentication_username";
+	private static final String PASSWORD_FIELD_ID = "authentication_password";
+	private static final String USERNAME_FIELD_ID = "authentication_username";
+	private static final String PASSWORD = "admin";
+	private static final String USERNAME = "admin";
 	public WebDriver driver;
 	public DriverExtensions xdriver;
 
@@ -35,8 +37,8 @@ public class BaseFFCRMTest {
 
 	protected void login() {
 		WebElement loginPage = driver.findElement(By.id("new_authentication"));
-		loginPage.findElement(By.id(USERNAME)).sendKeys("admin");
-		loginPage.findElement(By.id(PASSWORD)).sendKeys("admin");
+		loginPage.findElement(By.id(USERNAME_FIELD_ID)).sendKeys(USERNAME);
+		loginPage.findElement(By.id(PASSWORD_FIELD_ID)).sendKeys(PASSWORD);
 		loginPage.submit();
 	}
 
