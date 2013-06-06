@@ -61,7 +61,7 @@ public class WhenAUserTriesToCreateACampaign extends BaseCampaignTest {
 		button.submit();
 	}
 
-	private void confirmCampaignCreated() {
+	private void confirmCampaignCreated() throws Exception {
 		searchForNewCampaign();
 		WebElement campaign = xdriver.getElementOnceNotStale(By
 				.partialLinkText("Twenty Million"));

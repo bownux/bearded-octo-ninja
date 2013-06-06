@@ -28,7 +28,7 @@ public class DriverExtensions {
 		assertTrue(element.isDisplayed());
 	}
 
-	public WebElement getElementOnceNotStale(By locator) {
+	public WebElement getElementOnceNotStale(By locator) throws Exception {
 		WebElement element = null;
 		long maxTimeInMillis = timeoutInSeconds/1000; 
 		long loopWaitTimeInMillis = 500; 
@@ -44,11 +44,7 @@ public class DriverExtensions {
 				// Element is stale; need to wait briefly and retry findElement()
 			}
 
-			try {
-					Thread.sleep(loopWaitTimeInMillis);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
+			Thread.sleep(loopWaitTimeInMillis);
 
 		} while (weHaventTimedOut(maxTimeInMillis, loopWaitTimeInMillis, elapsedTimeInMillis));
 

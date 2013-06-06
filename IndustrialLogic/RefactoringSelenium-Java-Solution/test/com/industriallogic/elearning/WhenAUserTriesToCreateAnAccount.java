@@ -18,8 +18,11 @@ public class WhenAUserTriesToCreateAnAccount {
 	private static final int TIMEOUT = 25;
 	private static final String FAT_FREE_CRM_URL = "http://il-ffcrm.herokuapp.com/";
 	private static final String NEW_ACCOUNT_NAME = "Bob's Bearings and BassOmatics";
-	private static final String PASSWORD = "authentication_password";
-	private static final String USERNAME = "authentication_username";
+	private static final String PARTIAL_ACCOUNT_NAME = "BassOmatics";
+	private static final String PASSWORD_FIELD_ID = "authentication_password";
+	private static final String USERNAME_FIELD_ID = "authentication_username";
+	private static final String PASSWORD = "admin";
+	private static final String USERNAME = "admin";
 
 	private WebElement createAccountPane;
 	private WebElement createAccountLink;
@@ -59,8 +62,8 @@ public class WhenAUserTriesToCreateAnAccount {
 
 	private void login() {
 		WebElement loginPage = driver.findElement(By.id("new_authentication"));
-		loginPage.findElement(By.id(USERNAME)).sendKeys("admin");
-		loginPage.findElement(By.id(PASSWORD)).sendKeys("admin");
+		loginPage.findElement(By.id(USERNAME_FIELD_ID)).sendKeys(USERNAME);
+		loginPage.findElement(By.id(PASSWORD_FIELD_ID)).sendKeys(PASSWORD);
 		loginPage.submit();
 	}
 
@@ -124,7 +127,7 @@ public class WhenAUserTriesToCreateAnAccount {
 	private void confirmAccountCreated() {
 		searchForAccount();
 		WebElement link2 = xdriver.getElementOnceNotStale(By
-				.partialLinkText("BassOmatics"));
+				.partialLinkText(PARTIAL_ACCOUNT_NAME));
 		link2.getTagName();
 		link2.click();
 	}
