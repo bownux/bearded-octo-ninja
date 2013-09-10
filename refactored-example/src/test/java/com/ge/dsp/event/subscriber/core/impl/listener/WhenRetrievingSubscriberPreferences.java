@@ -10,15 +10,11 @@
 
 package com.ge.dsp.event.subscriber.core.impl.listener;
 
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
-
-import java.util.List;
 
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
@@ -28,6 +24,7 @@ import org.testng.annotations.Test;
 import com.ge.dsp.dsi.dups.api.IDups;
 import com.ge.dsp.event.subscriber.core.entities.UserPreferenceEntity;
 import com.ge.dsp.event.subscriber.core.fakes.DupsUserNotFoundException;
+import com.ge.dsp.event.subscriber.core.fakes.FakeDupsService;
 import com.ge.dsp.event.subscriber.core.fakes.IPreference;
 import com.ge.dsp.event.subscriber.core.fakes.SpyLogger;
 import com.ge.dsp.event.subscriber.core.impl.SubscriberHelper;
@@ -36,13 +33,13 @@ import com.ge.dsp.event.subscriber.core.impl.kernel.InternalConfiguration;
 @PrepareForTest({InternalConfiguration.class, SubscriberHelper.class})
 @SuppressWarnings({ "javadoc", "nls" })
 public class WhenRetrievingSubscriberPreferences extends SubscriberListenerTestBase  {
-	private IDups dupsServiceMock;
+	private IDups dupServiceFake;
 
 	@BeforeTest
 	public void setUp() {
-		dupsServiceMock = mock(IDups.class);
+		dupServiceFake = new FakeDupsService();
 		internalConfig = InternalConfiguration.getInstance();
-		internalConfig.setDupsService(dupsServiceMock);
+		internalConfig.setDupsService(dupServiceFake);
 		fakeMessageEvent = createMessageEvent();
         spyLogger = new SpyLogger();
         
@@ -52,29 +49,32 @@ public class WhenRetrievingSubscriberPreferences extends SubscriberListenerTestB
 
 	@Test
 	public void nullUserPreferenceList_ReturnsNullPreferenceEntitiesList() throws DupsUserNotFoundException {
-		List<IPreference> nullPreferenceList = null;
-		when(dupsServiceMock.getUserPreferenceAll(TEST_CONTEXT_FOR_FILTERING)).thenReturn(nullPreferenceList);
+		dupServiceFake.setPreferenceList(null);
+		
 		assertNull(returnedPreferenceEntities());
 		assertEquals("listPreference was null.", spyLogger.toString());
 	}    
 
 	@Test
 	public void jsonWithoutSubscriptionInformation_Returns_EmptyPreferenceEntitiesList() throws DupsUserNotFoundException {
-		when(dupsServiceMock.getUserPreferenceAll(TEST_CONTEXT_FOR_FILTERING)).thenReturn(preferenceListWith(createPreferenceWith(JSON_WITH_NO_SUBSCRIPTION_SPECIFIED)));
+		dupServiceFake.setPreferenceList(preferenceListWith(createPreferenceWith(JSON_WITH_NO_SUBSCRIPTION_SPECIFIED)));
+		
 		assertTrue(returnedPreferenceEntities().isEmpty());
 		assertMessageContains("Undefined subscription preference: com.ge.dsp.event.subscriber.core.impl.listener.SubscriberListenerTestBase", spyLogger.toString());
 	}
 	
 	@Test
 	public void preferenceListWithNullJasonFlag_returnsEmptyUserPreferenceEntitiesList() throws DupsUserNotFoundException {
-		when(dupsServiceMock.getUserPreferenceAll(TEST_CONTEXT_FOR_FILTERING)).thenReturn(preferenceListWith(createPreferenceWith(NULL_JSON)));
+		dupServiceFake.setPreferenceList(preferenceListWith(createPreferenceWith(NULL_JSON)));
+		
 		assertTrue(returnedPreferenceEntities().isEmpty()); 
 		assertEquals("listPreference was null.", spyLogger.toString());
 	}
 	
 	@Test
 	public void correctPreferenceList_WithContext_returnsPreferenceEntity_WithContext() throws DupsUserNotFoundException {
-		when(dupsServiceMock.getUserPreferenceAll(TEST_CONTEXT_FOR_FILTERING)).thenReturn(preferenceListWith(createPreferenceWith(CORRECT_JSON)));
+		dupServiceFake.setPreferenceList(preferenceListWith(createPreferenceWith(CORRECT_JSON)));
+		
 		assertFalse(returnedPreferenceEntities().isEmpty()); 
 		assertPreferenceContextsMatch(preference, returnedPreferenceEntities().get(0));
 	}

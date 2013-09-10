@@ -7,21 +7,11 @@
         <methods>
           <include name="afterPowerMockTestMethod"/>
           <include name="beforePowerMockTestMethod"/>
-          <include name="canHandle_NullMessageEvent"/>
           <include name="beforePowerMockTestClass"/>
           <include name="setUp"/>
           <include name="afterPowerMockTestClass"/>
         </methods>
       </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents -->
-      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences">
-        <methods>
-          <include name="afterPowerMockTestMethod"/>
-          <include name="beforePowerMockTestMethod"/>
-          <include name="beforePowerMockTestClass"/>
-          <include name="setUp"/>
-          <include name="afterPowerMockTestClass"/>
-        </methods>
-      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences -->
       <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenPersistingUserEventEntities">
         <methods>
           <include name="afterPowerMockTestMethod"/>
@@ -31,6 +21,19 @@
           <include name="setUp"/>
         </methods>
       </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenPersistingUserEventEntities -->
+      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences">
+        <methods>
+          <include name="jsonWithoutSubscriptionInformation_Returns_EmptyPreferenceEntitiesList"/>
+          <include name="afterPowerMockTestMethod"/>
+          <include name="beforePowerMockTestMethod"/>
+          <include name="preferenceListWithNullJasonFlag_returnsEmptyUserPreferenceEntitiesList"/>
+          <include name="nullUserPreferenceList_ReturnsNullPreferenceEntitiesList"/>
+          <include name="beforePowerMockTestClass"/>
+          <include name="setUp"/>
+          <include name="afterPowerMockTestClass"/>
+          <include name="correctPreferenceList_WithContext_returnsPreferenceEntity_WithContext"/>
+        </methods>
+      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

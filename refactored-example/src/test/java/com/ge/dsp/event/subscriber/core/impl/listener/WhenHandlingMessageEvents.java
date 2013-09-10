@@ -38,6 +38,7 @@ public class WhenHandlingMessageEvents extends SubscriberListenerTestBase  {
 		
 		assignFakeCallBackToListener(fakeEventCallBack);
         spyLogger = new SpyLogger();
+        
         Whitebox.setInternalState(SubscriberListener.class, spyLogger);
 	}
 

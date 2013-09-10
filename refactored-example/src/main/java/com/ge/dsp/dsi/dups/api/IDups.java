@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.ge.dsp.commons.rest.PropertiesWrapper;
 import com.ge.dsp.dsi.notification.exception.DupsException;
+import com.ge.dsp.event.subscriber.core.entities.UserPreferenceEntity;
 import com.ge.dsp.event.subscriber.core.fakes.DupsUserNotFoundException;
 import com.ge.dsp.event.subscriber.core.fakes.IPreference;
 
@@ -322,4 +323,6 @@ public interface IDups
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public boolean validateUserInIdentityStore(@QueryParam("uuid") String uuid);
+
+	public void setPreferenceList(List<IPreference> preferenceList);
 }
