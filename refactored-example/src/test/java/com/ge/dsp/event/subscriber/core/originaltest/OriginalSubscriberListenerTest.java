@@ -8,7 +8,7 @@
  * under which the software has been supplied.
  */
 
-package com.ge.dsp.event.subscriber.core.fakes;
+package com.ge.dsp.event.subscriber.core.originaltest;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -38,6 +38,16 @@ import com.ge.dsp.event.subscriber.api.IEventCallback;
 import com.ge.dsp.event.subscriber.beans.EventDestination;
 import com.ge.dsp.event.subscriber.beans.EventDestination.NotificationType;
 import com.ge.dsp.event.subscriber.core.entities.UserPreferenceEntity;
+import com.ge.dsp.event.subscriber.core.fakes.DBConfigurationException;
+import com.ge.dsp.event.subscriber.core.fakes.DBUtil;
+import com.ge.dsp.event.subscriber.core.fakes.DigestCleanupJob;
+import com.ge.dsp.event.subscriber.core.fakes.DupsUserNotFoundException;
+import com.ge.dsp.event.subscriber.core.fakes.EntityManager;
+import com.ge.dsp.event.subscriber.core.fakes.EntityManagerFactory;
+import com.ge.dsp.event.subscriber.core.fakes.EntityTransaction;
+import com.ge.dsp.event.subscriber.core.fakes.IPreference;
+import com.ge.dsp.event.subscriber.core.fakes.MessageEventEntity;
+import com.ge.dsp.event.subscriber.core.fakes.UserEventEntity;
 import com.ge.dsp.event.subscriber.core.impl.SubscriberHelper;
 import com.ge.dsp.event.subscriber.core.impl.SubscriberListener;
 import com.ge.dsp.event.subscriber.core.impl.kernel.InternalConfiguration;

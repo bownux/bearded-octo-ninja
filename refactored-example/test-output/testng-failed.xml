@@ -3,15 +3,14 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents">
+      <class name="com.ge.dsp.event.subscriber.core.fakes.OriginalSubscriberListenerTest">
         <methods>
           <include name="afterPowerMockTestMethod"/>
           <include name="beforePowerMockTestMethod"/>
           <include name="beforePowerMockTestClass"/>
-          <include name="setUp"/>
           <include name="afterPowerMockTestClass"/>
         </methods>
-      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents -->
+      </class> <!-- com.ge.dsp.event.subscriber.core.fakes.OriginalSubscriberListenerTest -->
       <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenPersistingUserEventEntities">
         <methods>
           <include name="afterPowerMockTestMethod"/>
@@ -23,17 +22,24 @@
       </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenPersistingUserEventEntities -->
       <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences">
         <methods>
-          <include name="jsonWithoutSubscriptionInformation_Returns_EmptyPreferenceEntitiesList"/>
           <include name="afterPowerMockTestMethod"/>
           <include name="beforePowerMockTestMethod"/>
-          <include name="preferenceListWithNullJasonFlag_returnsEmptyUserPreferenceEntitiesList"/>
-          <include name="nullUserPreferenceList_ReturnsNullPreferenceEntitiesList"/>
           <include name="beforePowerMockTestClass"/>
           <include name="setUp"/>
           <include name="afterPowerMockTestClass"/>
-          <include name="correctPreferenceList_WithContext_returnsPreferenceEntity_WithContext"/>
         </methods>
       </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences -->
+      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents">
+        <methods>
+          <include name="afterPowerMockTestMethod"/>
+          <include name="emailNotification_WithNullEventCallBack_isCreatedProperly"/>
+          <include name="beforePowerMockTestMethod"/>
+          <include name="httpNotification_WithNullEventCallBack_isCreatedProperly"/>
+          <include name="beforePowerMockTestClass"/>
+          <include name="setUp"/>
+          <include name="afterPowerMockTestClass"/>
+        </methods>
+      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

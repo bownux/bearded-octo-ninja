@@ -22,7 +22,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.ge.dsp.commons.rest.PropertiesWrapper;
 import com.ge.dsp.dsi.notification.exception.DupsException;
-import com.ge.dsp.event.subscriber.core.entities.UserPreferenceEntity;
 import com.ge.dsp.event.subscriber.core.fakes.DupsUserNotFoundException;
 import com.ge.dsp.event.subscriber.core.fakes.IPreference;
 
