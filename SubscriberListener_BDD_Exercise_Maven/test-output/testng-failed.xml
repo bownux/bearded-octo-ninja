@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.ge.dsp.event.subscriber.core.fakes.OriginalSubscriberListenerTest">
+        <methods>
+          <include name="afterPowerMockTestMethod"/>
+          <include name="beforePowerMockTestMethod"/>
+          <include name="beforePowerMockTestClass"/>
+          <include name="afterPowerMockTestClass"/>
+        </methods>
+      </class> <!-- com.ge.dsp.event.subscriber.core.fakes.OriginalSubscriberListenerTest -->
+      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenPersistingUserEventEntities">
+        <methods>
+          <include name="afterPowerMockTestMethod"/>
+          <include name="beforePowerMockTestMethod"/>
+          <include name="beforePowerMockTestClass"/>
+          <include name="afterPowerMockTestClass"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenPersistingUserEventEntities -->
+      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences">
+        <methods>
+          <include name="afterPowerMockTestMethod"/>
+          <include name="beforePowerMockTestMethod"/>
+          <include name="beforePowerMockTestClass"/>
+          <include name="setUp"/>
+          <include name="afterPowerMockTestClass"/>
+        </methods>
+      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenRetrievingSubscriberPreferences -->
+      <class name="com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents">
+        <methods>
+          <include name="afterPowerMockTestMethod"/>
+          <include name="emailNotification_WithNullEventCallBack_isCreatedProperly"/>
+          <include name="beforePowerMockTestMethod"/>
+          <include name="httpNotification_WithNullEventCallBack_isCreatedProperly"/>
+          <include name="beforePowerMockTestClass"/>
+          <include name="setUp"/>
+          <include name="afterPowerMockTestClass"/>
+        </methods>
+      </class> <!-- com.ge.dsp.event.subscriber.core.impl.listener.WhenHandlingMessageEvents -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
