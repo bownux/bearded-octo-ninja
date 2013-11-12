@@ -1,8 +1,8 @@
 package controller.gameplay;
 
 import model.gamestate.Board;
-import model.gamestate.GameState;
 import model.gamestate.Board.SeriesSize;
+import model.gamestate.GameState;
 import model.strategy.IStrategy;
 import view.applet.IGameView;
 

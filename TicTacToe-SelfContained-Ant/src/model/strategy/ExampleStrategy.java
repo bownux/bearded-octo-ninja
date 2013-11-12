@@ -1,9 +1,9 @@
 package model.strategy;
 
 import model.gamestate.Board;
+import model.gamestate.Board.SeriesSize;
 import model.gamestate.Move;
 import model.gamestate.MoveGroup;
-import model.gamestate.Board.SeriesSize;
 import model.patternsearching.PatternFinder;
 import controller.gameplay.TicTacToeGame.MoveScore;
 
