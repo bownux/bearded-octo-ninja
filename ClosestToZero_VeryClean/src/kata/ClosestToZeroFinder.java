@@ -2,19 +2,16 @@ package kata;
 
 public class ClosestToZeroFinder {
 	private final int[] candidates;
-	private int closestCandidate;
-	private int currentCandidate;
 	
 	public ClosestToZeroFinder(int[] candidates) {
-		this.candidates = candidates;
 		new ArrayValidator().validateInput(candidates);
-		closestCandidate = candidates[0];
+		this.candidates = candidates;
 	}
 
 	public int find() {
-		for (int candidate : candidates) {
-			currentCandidate = candidate;
-			
+		int closestCandidate = candidates[0];
+		
+		for (int currentCandidate : candidates) {
 			closestCandidate = closerOf(closestCandidate, currentCandidate);
 			closestCandidate = preferPositiveIfBothSameDistance(closestCandidate,currentCandidate);
 		}
